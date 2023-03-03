@@ -1,4 +1,4 @@
-package com.delivery_app.ui.theme
+package com.deliveryapp.ui.theme
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material.MaterialTheme
