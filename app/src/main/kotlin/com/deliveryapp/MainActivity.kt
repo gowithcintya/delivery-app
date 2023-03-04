@@ -33,18 +33,43 @@ class MainActivity : ComponentActivity() {
         setContent {
             DeliveryAppTheme {
                 Surface {
-                    ProductItem()
+                    ProductSection()
                 }
             }
         }
     }
 }
 
-@Preview(showBackground = true)
+@Composable
+fun ProductSection() {
+    Column() {
+        Text(
+            text = "Promoções",
+            Modifier.padding(
+                start = 16.dp,
+                top = 16.dp,
+                end = 16.dp
+            ),
+            fontSize = 20.sp,
+            fontWeight = FontWeight(400)
+        )
+        Row(Modifier.padding(
+            start = 16.dp,
+            top = 8.dp,
+            16.dp,
+            bottom = 16.dp
+        ).fillMaxWidth(),
+            horizontalArrangement = Arrangement.spacedBy(16.dp)) {
+            ProductItem()
+            ProductItem()
+            ProductItem()
+        }
+    }
+}
+
 @Composable
 fun ProductItem() {
     Surface(
-        Modifier.padding(8.dp),
         shape = RoundedCornerShape(15.dp),
         elevation = 4.dp
     ) {
@@ -73,7 +98,7 @@ fun ProductItem() {
                     contentDescription = "Imagem do produto",
                     Modifier
                         .size(imageSize)
-                        .offset(y = imageSize/2)
+                        .offset(y = imageSize / 2)
                         .clip(shape = CircleShape)
                         .align(BottomCenter)
 
@@ -98,4 +123,16 @@ fun ProductItem() {
             }
         }
     }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun ProductSectionPreview() {
+    ProductSection()
+}
+
+@Preview(showBackground = true)
+@Composable
+fun ProductItemPreview() {
+    ProductItem()
 }
