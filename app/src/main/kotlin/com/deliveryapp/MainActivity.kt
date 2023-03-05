@@ -3,8 +3,7 @@ package com.deliveryapp
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -15,7 +14,9 @@ import androidx.compose.ui.Alignment.Companion.BottomCenter
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -23,9 +24,12 @@ import androidx.compose.ui.tooling.preview.datasource.LoremIpsum
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.delivery_app.R
+import com.deliveryapp.extensions.toBrazilianCurrency
+import com.deliveryapp.model.Product
 import com.deliveryapp.ui.theme.DeliveryAppTheme
 import com.deliveryapp.ui.theme.Purple500
 import com.deliveryapp.ui.theme.Teal200
+import java.math.BigDecimal
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -42,9 +46,9 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun ProductSection() {
-    Column() {
+    Column {
         Text(
-            text = "Promoções",
+            text = stringResource(R.string.promoções),
             Modifier.padding(
                 start = 16.dp,
                 top = 16.dp,
@@ -53,22 +57,45 @@ fun ProductSection() {
             fontSize = 20.sp,
             fontWeight = FontWeight(400)
         )
-        Row(Modifier.padding(
-            start = 16.dp,
-            top = 8.dp,
-            16.dp,
-            bottom = 16.dp
-        ).fillMaxWidth(),
-            horizontalArrangement = Arrangement.spacedBy(16.dp)) {
-            ProductItem()
-            ProductItem()
-            ProductItem()
+        Row(
+            Modifier
+                .padding(
+                    top = 8.dp,
+                    bottom = 16.dp
+                )
+                .fillMaxWidth()
+                .horizontalScroll(rememberScrollState(0)),
+            horizontalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
+            Spacer(Modifier)
+            ProductItem(
+                Product(
+                    name = stringResource(R.string.hamburguer),
+                    price = BigDecimal("12.99"),
+                    image = R.drawable.burger
+                )
+            )
+            ProductItem(
+                Product(
+                    name = stringResource(R.string.pizza),
+                    price = BigDecimal("19.99"),
+                    image = R.drawable.pizza
+                )
+            )
+            ProductItem(
+                Product(
+                    name = stringResource(R.string.batata_frita),
+                    price = BigDecimal("7.99"),
+                    image = R.drawable.fries
+                )
+            )
+            Spacer(Modifier)
         }
     }
 }
 
 @Composable
-fun ProductItem() {
+fun ProductItem(product: Product) {
     Surface(
         shape = RoundedCornerShape(15.dp),
         elevation = 4.dp
@@ -93,21 +120,21 @@ fun ProductItem() {
             ) {
                 Image(
                     painter = painterResource(
-                        id = R.drawable.ic_launcher_background,
+                        id = product.image
                     ),
-                    contentDescription = "Imagem do produto",
+                    contentDescription = stringResource(R.string.imagem_produto),
                     Modifier
                         .size(imageSize)
                         .offset(y = imageSize / 2)
                         .clip(shape = CircleShape)
-                        .align(BottomCenter)
-
+                        .align(BottomCenter),
+                    contentScale = ContentScale.Crop
                 )
             }
-            Spacer(modifier = Modifier.height(imageSize/2))
+            Spacer(modifier = Modifier.height(imageSize / 2))
             Column(Modifier.padding(16.dp)) {
                 Text(
-                    text = LoremIpsum(50).values.first(),
+                    text = product.name,
                     fontSize = 18.sp,
                     fontWeight = FontWeight(700),
                     maxLines = 2,
@@ -115,7 +142,7 @@ fun ProductItem() {
 
                 )
                 Text(
-                    text = "R$ 14,99",
+                    text = product.price.toBrazilianCurrency(),
                     Modifier.padding(top = 8.dp),
                     fontSize = 14.sp,
                     fontWeight = FontWeight(400)
@@ -134,5 +161,11 @@ fun ProductSectionPreview() {
 @Preview(showBackground = true)
 @Composable
 fun ProductItemPreview() {
-    ProductItem()
+    ProductItem(
+        Product(
+            name = LoremIpsum(50).values.first(),
+            price = BigDecimal("14.99"),
+            image = R.drawable.ic_launcher_background
+        )
+    )
 }

@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">delivery-app</string>
+    <string name="promoções">Promoções</string>
+    <string name="hamburguer">Hamburguer</string>
+    <string name="pizza">Pizza</string>
+    <string name="batata_frita">Batata frita</string>
+    <string name="imagem_produto">Imagem do produto</string>
 </resources>
