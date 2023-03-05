@@ -35,10 +35,26 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            DeliveryAppTheme {
-                Surface {
-                    ProductSection()
-                }
+            App()
+        }
+    }
+}
+
+@Composable
+fun App() {
+    DeliveryAppTheme {
+        Surface {
+            Column(
+                Modifier
+                    .fillMaxSize()
+                    .verticalScroll(rememberScrollState()),
+                verticalArrangement = Arrangement.spacedBy(16.dp)
+            ) {
+                Spacer(Modifier)
+                ProductSection()
+                ProductSection()
+                ProductSection()
+                Spacer(Modifier)
             }
         }
     }
@@ -51,7 +67,6 @@ fun ProductSection() {
             text = stringResource(R.string.promoções),
             Modifier.padding(
                 start = 16.dp,
-                top = 16.dp,
                 end = 16.dp
             ),
             fontSize = 20.sp,
@@ -61,7 +76,6 @@ fun ProductSection() {
             Modifier
                 .padding(
                     top = 8.dp,
-                    bottom = 16.dp
                 )
                 .fillMaxWidth()
                 .horizontalScroll(rememberScrollState(0)),
@@ -150,6 +164,12 @@ fun ProductItem(product: Product) {
             }
         }
     }
+}
+
+@Preview(showSystemUi = true)
+@Composable
+fun AppPreview() {
+    App()
 }
 
 @Preview(showBackground = true)
