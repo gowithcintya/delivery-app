@@ -1,4 +1,4 @@
-package com.delivery_app.ui.theme
+package com.deliveryapp.ui.theme
 
 import androidx.compose.material.Typography
 import androidx.compose.ui.text.TextStyle

@@ -1,4 +1,4 @@
-package com.delivery_app
+package com.deliveryapp
 
 import org.junit.Test
 
