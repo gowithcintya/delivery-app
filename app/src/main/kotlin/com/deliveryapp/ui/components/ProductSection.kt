@@ -3,6 +3,7 @@ package com.deliveryapp.ui.components
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -12,6 +13,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.deliveryapp.model.Product
 import com.deliveryapp.sampledata.sampleProducts
+import com.deliveryapp.ui.theme.DeliveryAppTheme
 
 @Composable
 fun ProductSection(
@@ -49,6 +51,9 @@ fun ProductSection(
 @Preview(showBackground = true)
 @Composable
 fun ProductSectionPreview() {
-    ProductSection("Promoções", products = sampleProducts)
-
+    DeliveryAppTheme {
+        Surface {
+            ProductSection("Promoções", products = sampleProducts)
+        }
+    }
 }

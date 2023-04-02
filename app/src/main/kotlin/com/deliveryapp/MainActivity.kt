@@ -6,6 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.tooling.preview.Preview
+import com.deliveryapp.sampledata.sampleSections
 import com.deliveryapp.ui.screens.HomeScreen
 import com.deliveryapp.ui.theme.DeliveryAppTheme
 
@@ -22,7 +23,9 @@ class MainActivity : ComponentActivity() {
 fun App() {
     DeliveryAppTheme {
         Surface {
-            HomeScreen()
+            HomeScreen(
+                sampleSections
+            )
         }
     }
 }
